@@ -5,10 +5,7 @@ use App\Http\Controllers\CarsController;
 use App\Models\Car;
 
 
-Route::get('/', function () {
-    $cars = Car::all(); // Haal alle auto's op uit de database
-    return view('welcome', compact('cars'));
-})->name('home');
+Route::get('/', [CarsController::class , 'index'])->name('home');
 
 Route::get('create', function () {
 
