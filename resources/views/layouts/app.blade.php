@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
@@ -18,14 +18,10 @@
     <body class="font-sans antialiased">
         <nav class="bg-black flex py-3">
             <div class="w-full mx-auto px-4 flex">
-                <a class="text-lg text-white min-w-48" href="{{ route('home') }}">
-                    <strong class="text-orange-500 text-bold">Wheely</strong> good cars<strong class="text-orange-500 text-bold">!</strong>
-                </a>
+                <a class="text-lg text-white min-w-48" href="{{ route('welcome') }}"><strong class="text-orange-500 text-bold">Wheely</strong> good cars<strong class="text-orange-500 text-bold">!</strong></a>
                 <div class="flex justify-between w-full" id="navbarNav">
                     <ul class="flex items-end">
-                        <li class="mr-4">
-                            <a class="text-white hover:text-gray-300" href="{{ route('cars.index') }}">Alle auto's</a>
-                        </li>
+                        <li class="mr-4"><a class="text-white hover:text-gray-300" href="{{ route('welcome') }}">Alle auto's</a></li>
                         @auth
                             <li class="mr-4"><a class="text-white hover:text-gray-300" href="{{ route('cars.myOffers') }}">Mijn aanbod</a></li>
                             <li class="mr-4"><a class="text-white hover:text-gray-300" href="{{ route('cars.create') }}">Aanbod plaatsen</a></li>
@@ -37,18 +33,20 @@
                             <li class="mr-4"><a class="text-orange-500 hover:text-orange-400" href="{{ route('login') }}">Inloggen</a></li>
                         @endguest
                         @auth
-                            <li class="mr-4"><a class="text-orange-500 hover:text-orange-400" href="{{ route('logout') }}">Uitloggen</a></li>
+                            <li class="mr-4">
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <input type="submit" class="text-orange-500 hover:text-orange-400" value="Uitloggen">
+                                </form>
+                            </li>
                         @endauth
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <div class="max-w-7xl mx-auto mt-10 px-4">
+        <div class="max-w-7xl mx-auto px-4">
             {{ $slot }}
-
-            <!-- Paginatie sectie -->
-
         </div>
     </body>
 </html>

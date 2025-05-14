@@ -8,9 +8,12 @@ class CarsController extends Controller
 {
     public function index()
     {
-        $cars = Car::paginate(1); // 10 items per page
+
+        $cars = Car::paginate(10); // 10 items per page
         return view('welcome', compact('cars'));
     }
+
+
 
     public function store(Request $request)
     {
@@ -112,6 +115,12 @@ class CarsController extends Controller
 
         return redirect()->route('cars.myOffers')->with('success', 'Auto succesvol bijgewerkt!');
     }
+    public function show(Car $car)
+{
+
+    $car->increment('views');
+    return view('cars.show', compact('car'));
+}
 
 
 }
